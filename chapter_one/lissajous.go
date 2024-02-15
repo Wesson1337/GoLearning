@@ -5,9 +5,11 @@ import (
 	"image/color"
 	"image/gif"
 	"io"
+	"log"
 	"math"
 	"math/rand"
-	"os"
+	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -19,14 +21,25 @@ const (
 )
 
 func main() {
-	lissajous(os.Stdout)
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		lissajous(w, r)
+	}
+	http.HandleFunc("/", handler)
+	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }
-func lissajous(out io.Writer) {
+
+func lissajous(out io.Writer, r *http.Request) {
+	if err := r.ParseForm(); err != nil {
+		log.Print(err)
+	}
+	nframes, err := strconv.Atoi(r.Form.Get("nframes")) // Количество кадров анимации
+	if err != nil {
+		nframes = 20
+	}
 	const (
 		cycles  = 5     // Количество полных колебаний x
 		res     = 0.001 // Угловое разрешение
 		size    = 100   // Конва изображения охватывает [size..+size]
-		nframes = 64    // Количество кадров анимации
 		delay   = 8     // Задержка между кадрами (единица - 10мс)
 	)
 	rand.New(rand.NewSource((time.Now().UTC().UnixNano())))
