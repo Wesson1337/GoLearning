@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"chapter_two/tempconv"
 )
 
 var b, f, s = true, 2.3, "four"
@@ -30,6 +31,8 @@ func main() {
 	incr(&v)
 	fmt.Println(v)
 	fmt.Println(incr(&v))
+
+	fmt.Println(tempconv.CToF(tempconv.BoilingC))
 }
 
 func incr(count *int) int {
