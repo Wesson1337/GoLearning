@@ -32,17 +32,17 @@ func main() {
 	fmt.Println("</svg>")
 }
 
-func corner(i, j int) (float64, float64, string) {
+func corner(i, j int) (sx float64, sy float64, color string) {
 	// Ищем угловую точку (x,y) ячейки (i,j).
 	x := xyrange * (float64(i)/cells - 0.5)
 	y := xyrange * (float64(j)/cells - 0.5)
 	// Вычисляем высотку поверхности z
 	z := f(x, y)
-	color := getColor(z)
+	color = getColor(z)
 	// Изометрически проецируем (x,y,z) на двумерную канву SVG (sx, sy)
-	sx := width/2 + (x-y)*cos30*xyscale
-	sy := height/2 + (x+y)*sin30*xyscale - z*zscale
-	return sx, sy, color
+	sx = width/2 + (x-y)*cos30*xyscale
+	sy = height/2 + (x+y)*sin30*xyscale - z*zscale
+	return
 }
 func getColor(z float64) string {
 	if z >= 0.07 {
