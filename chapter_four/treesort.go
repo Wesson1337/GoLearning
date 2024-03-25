@@ -1,5 +1,16 @@
 package main
 
+import (
+	"fmt"
+	"strconv"
+)
+
+func main() {
+	values := []int{3, 2, 1, 5, 4}
+	Sort(values)
+	fmt.Println(values)
+}
+
 type tree struct {
 	value       int
 	left, right *tree
@@ -36,5 +47,13 @@ func add (t *tree, value int) *tree {
 	} else {
 		t.right = add(t.right, value)
 	}
+	fmt.Println(t)
 	return t
+}
+
+func (t *tree) String() string {
+	if t == nil {
+		return ""
+	}
+	return t.left.String() + strconv.Itoa(t.value) + " " + t.right.String()
 }

@@ -6,8 +6,10 @@ import (
 )
 
 func main() {
+	lolVar := "lol"
 	cache.mapping["key"] = "value"
 	fmt.Println(Lookup("key"))
+	fmt.Println(lolVar)
 }
 
 var cache = struct {
