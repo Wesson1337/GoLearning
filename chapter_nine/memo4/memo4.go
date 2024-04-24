@@ -1,8 +1,3 @@
-// Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
-// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
-
-// See page 276.
-
 // Package memo provides a concurrency-safe memoization a function of
 // a function.  Requests for different keys proceed in parallel.
 // Concurrent requests for the same key block until the first completes.
