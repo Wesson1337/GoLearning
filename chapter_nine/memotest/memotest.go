@@ -64,14 +64,7 @@ func Concurrent(t *testing.T, m M) {
 		n.Add(1)
 		go func(url string) {
 			defer n.Done()
-			start := time.Now()
-			value, err := m.Get(url)
-			if err != nil {
-				log.Print(err)
-				return
-			}
-			fmt.Printf("%s, %s, %d bytes\n",
-				url, time.Since(start), len(value.([]byte)))
+			m.Get(url)
 		}(url)
 	}
 	n.Wait()
